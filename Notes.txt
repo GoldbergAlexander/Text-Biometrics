@@ -1,0 +1,14 @@
+        //DB Stuff
+        int[] array = {0,1,2,3,4,5,6,7,8};
+        DBCollection collection = DataBaseController.getCollection("myCollection");
+        BasicDBObject doc = new BasicDBObject();
+        doc.append("Name", "Alex");
+        doc.append("Age",19);
+        doc.append("Data",array);
+        collection.insert(doc);
+
+        BasicDBObject queryObject = new BasicDBObject("Name","Alex");
+        BasicDBObject updateObject = new BasicDBObject("$push",new BasicDBObject("Data",43));
+
+        collection.update(queryObject,updateObject);
+        System.out.println(collection.find(queryObject).next());
