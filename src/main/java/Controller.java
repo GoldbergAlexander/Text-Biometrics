@@ -17,8 +17,11 @@ public class Controller implements Initializable{
 
     @FXML
     protected Label labelOutput;
+    protected int labelLength;
     @FXML
     protected TextArea textAreaInput;
+    @FXML
+    protected TextField textUserInput;
 
     //Key Tracking Variables;
     private double keyDown = 0, keyUp = 0;
@@ -36,16 +39,26 @@ public class Controller implements Initializable{
         keyUp = System.currentTimeMillis();
         //Evaluate Key Down Time
         double keyDownTime = keyUp - keyDown;
+        FingerprintController.setCurrentUser(textUserInput.getText());
         FingerprintController.Save(workingKeyEvent,keyDownTime);
-
     }
+
     @FXML
     protected void textAreaInputKeyTyped(KeyEvent event){
-
+        char charTyped = event.getCharacter().charAt(0);
+        char charLabel = labelOutput.getText().charAt(labelLength/2);
+        if (charTyped == charLabel) {
+            labelOutput.setUnderline(false);
+            String oldLabelText = labelOutput.getText();
+            String newLabelText = oldLabelText.substring(1,labelLength) + TextModel.getNextChar();
+            labelOutput.setText(newLabelText);
+        }else{
+            labelOutput.setUnderline(true);
+        }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        labelLength = labelOutput.getText().length();
     }
 }
