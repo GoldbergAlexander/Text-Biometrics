@@ -17,7 +17,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class FingerprintController {
-    private static String currentUser = "User";
+    private static String currentUser = "Alex";
     private static String collectionName = "fingerprints";
     private static DBCollection collection;
 
@@ -26,20 +26,21 @@ public class FingerprintController {
             init();
         }
         //Check for user Document
-        BasicDBObject query = new BasicDBObject("User",currentUser).append("Key",keyEvent.getCode().toString());
+        BasicDBObject query = new BasicDBObject("User",currentUser).append("Key", keyEvent.getCode().toString());
         if(collection.find(query).limit(1).hasNext()){
-            update(keyEvent, time, query);
+            updateKeyData(keyEvent, time, query);
         }else{
-            insert(keyEvent,time);
+            insertUser(keyEvent, time);
         }
 
     }
-    private static void update(KeyEvent keyEvent, double time,BasicDBObject query){
-
-        BasicDBObject updateObject = new BasicDBObject("$push",new BasicDBObject("Data",time));
-        collection.update(query,updateObject);
+    private static void updateKeyData(KeyEvent keyEvent, double time, BasicDBObject query){
+        System.out.println("Updating");
+        BasicDBObject update = new BasicDBObject("$push", new BasicDBObject("Data", time));
+        collection.update(query,update);
     }
-    private static void insert(KeyEvent keyEvent, double time){
+    private static void insertUser(KeyEvent keyEvent, double time){
+        System.out.println("Inserting");
         BasicDBObject document = new BasicDBObject();
         document.append("User",currentUser);
         document.append("Key", keyEvent.getCode().toString());
