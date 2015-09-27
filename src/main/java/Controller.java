@@ -45,20 +45,11 @@ public class Controller implements Initializable{
 
     @FXML
     protected void textAreaInputKeyTyped(KeyEvent event){
-        char charTyped = event.getCharacter().charAt(0);
-        char charLabel = labelOutput.getText().charAt(labelLength/2);
-        if (charTyped == charLabel) {
-            labelOutput.setUnderline(false);
-            String oldLabelText = labelOutput.getText();
-            String newLabelText = oldLabelText.substring(1,labelLength) + TextModel.getNextChar();
-            labelOutput.setText(newLabelText);
-        }else{
-            labelOutput.setUnderline(true);
-        }
+        TextController.textTyped(event,labelOutput);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        labelLength = labelOutput.getText().length();
+
     }
 }

@@ -2,8 +2,7 @@
  * Created by Alexander Goldberg (alexander.goldberg25@uga.edu) on 9/20/15.
  */
 //MongoDB Imports
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBCollection;
+import com.mongodb.*;
 //Javafx
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -23,5 +22,8 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
+
+
+
     }
 }

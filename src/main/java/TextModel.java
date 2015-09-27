@@ -52,7 +52,7 @@ public class TextModel {
             for(int i = 0; i < (int)(Math.random()*500);i++){
                 r = fileInputStream.read();
             }
-            while ((char)(r = fileInputStream.read()) != ' '){
+            while ((char)(r = fileInputStream.read()) != '.'){
 
             }
         }catch (Exception e){
