@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.*?>
+
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
    <center>
       <VBox alignment="CENTER" prefHeight="300.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="labelOutput" alignment="CENTER" contentDisplay="CENTER" text="Label">
+            <Label fx:id="labelOutput" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" prefHeight="18.0" prefWidth="556.0" text="Start typing the text you see here. It will display random words for testing." textAlignment="RIGHT">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
             </Label>
-            <TextArea fx:id="textAreaInput" onKeyPressed="#textAreaInputKeyPressed" onKeyReleased="#textAreaInputKeyReleased" onKeyTyped="#textAreaInputKeyTyped">
+            <TextArea fx:id="textAreaInput" onKeyPressed="#textAreaInputKeyPressed" onKeyReleased="#textAreaInputKeyReleased" onKeyTyped="#textAreaInputKeyTyped" promptText="Enter Text Here" wrapText="true">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
@@ -24,4 +32,11 @@
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
+   <bottom>
+      <Pane prefHeight="32.0" prefWidth="580.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="textUserInput" layoutX="10.0" layoutY="-3.0" promptText="User" />
+         </children>
+      </Pane>
+   </bottom>
 </BorderPane>

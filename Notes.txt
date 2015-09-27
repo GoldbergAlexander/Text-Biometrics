@@ -12,3 +12,23 @@
 
         collection.update(queryObject,updateObject);
         System.out.println(collection.find(queryObject).next());
+
+
+        /* DBCollection collection = DataBaseController.getCollection("fingerprints");
+                DBCursor cursor = collection.find();
+
+                while (cursor.hasNext()){
+                    DBObject dbObject = cursor.next();
+                    BasicDBList object = (BasicDBList)dbObject.get("Data");
+
+                    Double[] array = object.toArray(new Double[0]);
+                    for(int i = 0; i < array.length; i++){
+                        System.out.println();
+                        System.out.print(dbObject.get("User"));
+                        System.out.print(",");
+                        System.out.print(dbObject.get("Key"));
+                        System.out.print(",");
+                        System.out.print(array[i]);
+                        System.out.print(",");
+                    }
+                }*/
