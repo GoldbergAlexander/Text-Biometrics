@@ -2,19 +2,12 @@
  * Created by Alexander Goldberg (alexander.goldberg25@uga.edu) on 9/20/15.
  */
 //MongoDB Imports
+
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
+import javafx.scene.input.KeyEvent;
 
 //JavaFX Imports
-import javafx.scene.control.*;
-import javafx.scene.input.KeyEvent;
-import javafx.event.Event;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.*;
-import javafx.animation.*;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class FingerprintController {
     private static String currentUser = "User";
@@ -58,7 +51,7 @@ public class FingerprintController {
     }
 
     private static void init(){
-        collection = DataBaseController.getCollection(collectionName);
+        collection = DataBaseModel.getCollection(collectionName);
     }
 
 
