@@ -36,7 +36,6 @@ public class FingerprintModel {
 
     public static Double[][] getKeyData(String key) {
         ArrayList<Double[]> array = new ArrayList<Double[]>();
-        int i = 0;
         //Check for init
         if (collection == null) {
             init();
@@ -50,14 +49,12 @@ public class FingerprintModel {
             DBObject dbObject = cursor.next();
             BasicDBList object = (BasicDBList) dbObject.get("Data");
             array.add(object.toArray(new Double[]{}));
-            i++;
         }
         return array.toArray(new Double[][]{});
     }
 
     public static String[] getKeyList(String user) {
         ArrayList<String> strings = new ArrayList<String>();
-        int i = 0;
         BasicDBObject query;
         if (user == null) {
             query = new BasicDBObject();
@@ -81,7 +78,6 @@ public class FingerprintModel {
 
     public static String[] getUserList(String key) {
         ArrayList<String> strings = new ArrayList<String>();
-        int i = 0;
         BasicDBObject query;
         if (key == null) {
             query = new BasicDBObject();
