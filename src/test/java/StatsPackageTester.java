@@ -3,15 +3,19 @@
  */
 public class StatsPackageTester {
     public static void main(String[] args){
-     /*   System.out.println("A");
-        print(FingerprintModel.getKeyData("Alexander Goldberg", "A"));
-        System.out.println("B");
-        print(StatsPackage.arrayFlatten(FingerprintModel.getKeyData("A")));
-        System.out.println("Stat");
-        System.out.println(StatsPackage.tTest(FingerprintModel.getKeyData("Alexander Goldberg","A"),StatsPackage.arrayFlatten(FingerprintModel.getKeyData("A"))));
-*/
+        double[] alex, jessi;
+        System.out.println("Alexander A");
+        alex = FingerprintModel.getKeyData("Alexander Goldberg","A");
+        print(alex);
+        System.out.println("Jessi A");
+        jessi = FingerprintModel.getKeyData("Jessi Austin","A");
+        print(jessi);
+        System.out.println("Stat: ");
+        System.out.println(StatsPackage.tTest(jessi,alex));
+        StatsPackage.summaryStatistics(alex);
+
     }
-    private static void print(Double[] array) {
+    private static void print(double[] array) {
         for (int i = 0; i < array.length; i++) {
             System.out.println(array[i]);
         }

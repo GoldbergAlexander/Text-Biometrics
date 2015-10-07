@@ -7,6 +7,9 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FingerprintModel {
     private static String collectionName = "fingerprints";
     private static DBCollection collection;
@@ -51,29 +54,62 @@ public class FingerprintModel {
     }
 
 
-    /*
+
 
     public static double[] getKeyData(String key) {
-
-
+        String[] users = getUserList();
+        double[][] array = new double[users.length][];
+        for (int i = 0; i < users.length;i++){
+            array[i] = getKeyData(users[i],key);
+        }
+         return StatsPackage.arrayFlatten(array);
     }
 
     public static String[] getKeyList(String user) {
-
+        //TODO Alphabetize returned chars and strings
+        //Check for Init()
+        if (collection == null) {
+            init();
+        }
+        String[] string = new String[0];
+        BasicDBObject query = new BasicDBObject();
+        query.append("User",user);
+        DBCursor cursor = collection.find(query);
+        List<String> list = new ArrayList<String>();
+        while (cursor.hasNext()) {
+            list.add(cursor.next().get("Key").toString());
+        }
+        return list.toArray(new String[]{});
     }
 
     public static String[] getKeyList() {
-
+        //TODO Alphabetize returned chars and strings
+        //Check for Init()
+        if (collection == null) {
+            init();
+        }
+        //Get distinct list by User
+        List list = collection.distinct("Key");
+        //Return list as an array of String[]
+        return (String[])list.toArray(new String[]{});
     }
-
+    /*
     public static String[] getUserList(String key) {
 
     }
     */
     public static String[] getUserList() {
+        //TODO Alphabetize returned Users
+        //Check for Init()
+        if (collection == null) {
+            init();
+        }
+        //Get distinct list by User
+        List list = collection.distinct("User");
+        //Return list as an array of String[]
+        return (String[])list.toArray(new String[]{});
 
     }
-
 
 
 }
