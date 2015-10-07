@@ -2,9 +2,10 @@
  * Created by Alexander Goldberg (alexander.goldberg25@uga.edu) on 9/27/15.
  */
 
-import com.mongodb.*;
-
-import java.util.ArrayList;
+import com.mongodb.BasicDBList;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
 
 public class FingerprintModel {
     private static String collectionName = "fingerprints";
@@ -15,92 +16,64 @@ public class FingerprintModel {
         collection = DataBaseModel.getCollection(collectionName);
     }
 
-    public static Double[] getKeyData(String user, String key) {
-        Double[] array;
-        //Check for init
-        if (collection == null) {
+    public static double[] getKeyData(String user, String key) {
+
+        //Check for Init()
+        if(collection == null){
             init();
         }
-        //Build query object
+
+        //Initialize array to return
+        double[] array = new double[0];
+        //Create Query objects
         BasicDBObject query = new BasicDBObject();
-        query.append("User", user);
-        query.append("Key", key);
-
-        DBCursor cursor = collection.find().limit(1);
-        DBObject dbObject = cursor.next();
-        BasicDBList object = (BasicDBList) dbObject.get("Data");
-        array = object.toArray(new Double[0]);
-
+        //Search By User
+        query.append("User",user);
+        //Search by Key
+        query.append("Key",key);
+        //Execute find with query and pass to cursor
+        DBCursor cursor = collection.find(query);
+        //Iterate though cursor
+        while (cursor.hasNext()){
+            //Convert "Data" segement to List
+            BasicDBList list = (BasicDBList)cursor.next().get("Data");
+            //Convert list to Double array
+            Double[] DoubleArray = list.toArray(new Double[list.size()]);
+            //Array cursor.next()
+            array = new double[DoubleArray.length];
+            //Unbox Double array to double array
+            for (int i = 0; i < DoubleArray.length; i++) {
+                array[i] = DoubleArray[i];
+            }
+        }
         return array;
+
     }
 
-    public static Double[][] getKeyData(String key) {
-        ArrayList<Double[]> array = new ArrayList<Double[]>();
-        //Check for init
-        if (collection == null) {
-            init();
-        }
-        //Build query object
-        BasicDBObject query = new BasicDBObject();
-        query.append("Key", key);
 
-        DBCursor cursor = collection.find(query);
-        while (cursor.hasNext()) {
-            DBObject dbObject = cursor.next();
-            BasicDBList object = (BasicDBList) dbObject.get("Data");
-            array.add(object.toArray(new Double[]{}));
-        }
-        return array.toArray(new Double[][]{});
+    /*
+
+    public static double[] getKeyData(String key) {
+
+
     }
 
     public static String[] getKeyList(String user) {
-        ArrayList<String> strings = new ArrayList<String>();
-        BasicDBObject query;
-        if (user == null) {
-            query = new BasicDBObject();
-        } else {
-            query = new BasicDBObject();
-            query.append("User", user);
-        }
-        DBCursor cursor = collection.find(query);
-        while (cursor.hasNext()) {
-            DBObject dbObject = cursor.next();
-            if (!strings.contains(dbObject.get("Key").toString())) {
-                strings.add(dbObject.get("Key").toString());
-            }
-        }
-        return strings.toArray(new String[]{});
+
     }
 
     public static String[] getKeyList() {
-        return getKeyList(null);
+
     }
 
     public static String[] getUserList(String key) {
-        ArrayList<String> strings = new ArrayList<String>();
-        BasicDBObject query;
-        if (key == null) {
-            query = new BasicDBObject();
 
-        } else {
-            query = new BasicDBObject();
-            query.append("Key", key);
-        }
-        DBCursor cursor = collection.find(query);
-
-        while (cursor.hasNext()) {
-            DBObject dbObject = cursor.next();
-            //TODO Convert this to a DB function
-            if (!strings.contains(dbObject.get("User").toString())) {
-                strings.add(dbObject.get("User").toString());
-            }
-        }
-        return strings.toArray(new String[]{});
     }
-
+    */
     public static String[] getUserList() {
-        return getUserList(null);
+
     }
+
 
 
 }
