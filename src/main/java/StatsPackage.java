@@ -5,8 +5,22 @@ import org.apache.commons.math3.stat.inference.TestUtils;
  * Created by Alexander Goldberg (alexander.goldberg25@uga.edu) on 10/1/15.
  */
 public class StatsPackage {
-    public static double tTest(double[] arrayOne, double[] arrayTwo) {
+    //T Val
+    public static double t(double[] arrayOne, double[] arrayTwo) {
         return TestUtils.t(arrayOne, arrayTwo);
+    }
+
+    public static Double t(double[][] arrayOne, double[] arrayTwo) {
+        return t(arrayFlatten(arrayOne), arrayTwo);
+    }
+
+    public static Double t(double[][] arrayOne, double[][] arrayTwo) {
+        return t(arrayFlatten(arrayOne), arrayFlatten(arrayTwo));
+    }
+
+    //P Val
+    public static double tTest(double[] arrayOne, double[] arrayTwo) {
+        return TestUtils.tTest(arrayOne, arrayTwo);
     }
 
     public static Double tTest(double[][] arrayOne, double[] arrayTwo) {

@@ -3,21 +3,26 @@
  */
 
 //JavaFX Imports
-import javafx.scene.control.*;
-import javafx.scene.input.KeyEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
-import javafx.animation.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.*;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable{
 
+    //Views
+    @FXML
+    protected VBox dataEntry, dataView;
+    @FXML
+    protected BorderPane view;
     @FXML
     protected Label labelOutput;
-    protected int labelLength;
     @FXML
     protected TextArea textAreaInput;
     @FXML
@@ -48,8 +53,18 @@ public class Controller implements Initializable{
         TextController.textTyped(event,labelOutput);
     }
 
+    @FXML
+    protected void setDataEntry(){
+        view.getChildren().removeAll();
+        view.setCenter(dataEntry);
+    }
+    @FXML void setDataView(){
+        view.getChildren().removeAll();
+        view.setCenter(dataView);
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        view.getChildren().removeAll();
     }
 }
