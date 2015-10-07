@@ -5,21 +5,21 @@ import org.apache.commons.math3.stat.inference.TestUtils;
  * Created by Alexander Goldberg (alexander.goldberg25@uga.edu) on 10/1/15.
  */
 public class StatsPackage {
-    public static double tTest(double[] arrayOne, double[] arrayTwo){
+    public static double tTest(double[] arrayOne, double[] arrayTwo) {
         return TestUtils.t(arrayOne, arrayTwo);
     }
-    
-    public static Double tTest(double[][] arrayOne, double[] arrayTwo){
+
+    public static Double tTest(double[][] arrayOne, double[] arrayTwo) {
         return tTest(arrayFlatten(arrayOne),arrayTwo);
     }
-    
-    public static Double tTest(double[][] arrayOne, double[][] arrayTwo){
+
+    public static Double tTest(double[][] arrayOne, double[][] arrayTwo) {
         return tTest(arrayFlatten(arrayOne),arrayFlatten(arrayTwo));
     }
 
-    public static  SummaryStatistics summaryStatistics(double[] array){
+    public static SummaryStatistics summaryStatistics(double[] array) {
         SummaryStatistics summaryStatistics = new SummaryStatistics();
-        for (int i = 0; i < array.length; i++){
+        for (int i = 0; i < array.length; i++) {
             summaryStatistics.addValue(array[i]);
         }
         return summaryStatistics;
@@ -47,19 +47,19 @@ public class StatsPackage {
 
     }
 
-    public static double[] arrayFlatten(double[][] array){
+    public static double[] arrayFlatten(double[][] array) {
         int nElements = 0;
         //get total number of elements
-        for(int i = 0; i< array.length;i++){
-            for (int j = 0;j < array[i].length;j++){
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array[i].length; j++) {
                 nElements++;
             }
         }
         double[] arrayToReturn = new double[nElements];
 
         nElements = 0;
-        for(int i = 0; i< array.length;i++){
-            for (int j = 0;j < array[i].length;j++){
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array[i].length; j++) {
                 arrayToReturn[nElements] = array[i][j];
                 nElements++;
             }
