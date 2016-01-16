@@ -5,7 +5,6 @@
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
-import javafx.scene.input.KeyEvent;
 
 //JavaFX Imports
 
@@ -14,13 +13,12 @@ public class FingerprintController {
     private static String collectionName = "fingerprints";
     private static DBCollection collection;
 
-    public static void Save(KeyEvent keyEvent, double time){
+    public static void SaveKeyDown(String keyEvent, double time) {
         if(collection == null){
             init();
         }
-
         //Check for user,key Document
-        BasicDBObject query = new BasicDBObject("User",currentUser).append("Key", keyEvent.getCode().toString());
+        BasicDBObject query = new BasicDBObject("User", currentUser).append("Key", keyEvent);
         if(collection.find(query).limit(1).hasNext()){
             //Append
             updateKeyData(keyEvent, time, query);
@@ -28,17 +26,18 @@ public class FingerprintController {
             //Insert
             insertUser(keyEvent, time);
         }
-
     }
-    private static void updateKeyData(KeyEvent keyEvent, double time, BasicDBObject query){
+
+    private static void updateKeyData(String keyEvent, double time, BasicDBObject query) {
         //$push append to array
         BasicDBObject update = new BasicDBObject("$push", new BasicDBObject("Data", time));
         collection.update(query,update);
     }
-    private static void insertUser(KeyEvent keyEvent, double time){
+
+    private static void insertUser(String keyEvent, double time) {
         BasicDBObject document = new BasicDBObject();
         document.append("User",currentUser);
-        document.append("Key", keyEvent.getCode().toString());
+        document.append("Key", keyEvent);
         document.append("Data", new double[]{time});
         collection.insert(document);
     }
