@@ -40,7 +40,7 @@ public class Controller implements Initializable{
         KeyEvent keyevent = event;
         //Get Time
         keyDown = System.currentTimeMillis();
-        System.out.println(keyDown - keyUp);
+        //System.out.println(keyDown - keyUp);
         //Insure not the first char
         if (workingKeyEvent != null) {
             //Time between keyup
@@ -82,5 +82,8 @@ public class Controller implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         view.getChildren().removeAll();
+        FingerprintModel.debugDataDump();
+
+
     }
 }

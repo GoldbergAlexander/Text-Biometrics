@@ -8,6 +8,8 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class FingerprintModel {
@@ -77,6 +79,29 @@ public class FingerprintModel {
         while (cursor.hasNext()) {
             list.add(cursor.next().get("Key").toString());
         }
+        Collections.sort(list, new Comparator<String>() {
+            @Override
+            public int compare(String s1, String s2) {
+                int length1 = s1.length();
+                int length2 = s2.length();
+                boolean s1Col = s1.contains(":");
+                boolean s2Col = s2.contains(":");
+
+                //If it has collon make it come after
+                if (s1Col == true && s2Col == false) {
+                    length1 = length2 + 1;
+                } else if (s1Col == false && s2Col == true) {
+                    length2 = length1 + 1;
+                }
+                if (length1 < length2) {
+                    return -1;
+                } else if (length1 > length2) {
+                    return 1;
+                } else {
+                    return s1.compareTo(s2);
+                }
+            }
+        });
         return list.toArray(new String[]{});
     }
 
@@ -89,6 +114,29 @@ public class FingerprintModel {
         //Get distinct list by User
         List list = collection.distinct("Key");
         //Return list as an array of String[]
+        Collections.sort(list, new Comparator<String>() {
+            @Override
+            public int compare(String s1, String s2) {
+                int length1 = s1.length();
+                int length2 = s2.length();
+                boolean s1Col = s1.contains(":");
+                boolean s2Col = s2.contains(":");
+
+                //If it has collon make it come after
+                if (s1Col == true && s2Col == false) {
+                    length1 = length2 + 1;
+                } else if (s1Col == false && s2Col == true) {
+                    length2 = length1 + 1;
+                }
+                if (length1 < length2) {
+                    return -1;
+                } else if (length1 > length2) {
+                    return 1;
+                } else {
+                    return s1.compareTo(s2);
+                }
+            }
+        });
         return (String[]) list.toArray(new String[]{});
     }
 
@@ -98,7 +146,6 @@ public class FingerprintModel {
     }
     */
     public static String[] getUserList() {
-        //TODO Alphabetize returned Users
         //Check for Init()
         if (collection == null) {
             init();
@@ -106,8 +153,41 @@ public class FingerprintModel {
         //Get distinct list by User
         List list = collection.distinct("User");
         //Return list as an array of String[]
+        Collections.sort(list);
         return (String[]) list.toArray(new String[]{});
 
+    }
+
+    public static void debugDataDump() {
+
+        System.out.println("User List");
+        String[] userlist = FingerprintModel.getUserList();
+        for (int i = 0; i < userlist.length; i++) {
+            System.out.println(userlist[i]);
+        }
+
+        System.out.println("Key Data");
+        String[] allKeyList = FingerprintModel.getKeyList();
+        for (int i = 0; i < allKeyList.length; i++) {
+            System.out.println(allKeyList[i]);
+        }
+
+        System.out.println("Key Data");
+
+        String[] keylist;
+        for (int i = 0; i < userlist.length; i++) {
+            System.out.println("------------------------------------------------");
+            System.out.println("User: " + userlist[i]);
+            keylist = FingerprintModel.getKeyList(userlist[i]);
+            for (int j = 0; j < keylist.length; j++) {
+                System.out.print("Key: " + keylist[j] + ":\t");
+                double[] data = FingerprintModel.getKeyData(userlist[i], keylist[j]);
+                for (int l = 0; l < data.length; l++) {
+                    System.out.print(data[l] + " ");
+                }
+                System.out.println();
+            }
+        }
     }
 
 
