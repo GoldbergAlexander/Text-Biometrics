@@ -106,7 +106,6 @@ public class FingerprintModel {
     }
 
     public static String[] getKeyList() {
-        //TODO Alphabetize returned chars and strings
         //Check for Init()
         if (collection == null) {
             init();
@@ -158,12 +157,36 @@ public class FingerprintModel {
 
     }
 
+    public static String[] pointsOfAnalysis(String user, int minValueDataSet) {
+        String[] userKeyList = getKeyList(user);
+        List<String> points = new ArrayList<String>();
+        for (int i = 0; i < userKeyList.length; i++) {
+            if (sizeOfDataSet(user, userKeyList[i]) >= minValueDataSet) {
+                points.add(userKeyList[i]);
+            }
+        }
+        return points.toArray(new String[]{});
+    }
+
+    public static int sizeOfDataSet(String user, String key) {
+        return getKeyData(user, key).length;
+    }
+
     public static void debugDataDump() {
 
         System.out.println("User List");
         String[] userlist = FingerprintModel.getUserList();
         for (int i = 0; i < userlist.length; i++) {
             System.out.println(userlist[i]);
+            int minsize = 10;
+            String[] keys = pointsOfAnalysis(userlist[i], minsize);
+            System.out.println("There are " + keys.length + " points of analysis at a min size of " + minsize);
+            System.out.println("They are: ");
+            for (int j = 0; j < keys.length; j++) {
+                System.out.println(keys[j] + ":");
+                StatsPackage.debugDescriptiveStatistics(getKeyData(userlist[i], keys[j]));
+            }
+            System.out.println();
         }
 
         System.out.println("Key Data");

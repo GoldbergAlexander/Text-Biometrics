@@ -1,63 +1,69 @@
-import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
-import org.apache.commons.math3.stat.inference.TestUtils;
-
 /**
  * Created by Alexander Goldberg (alexander.goldberg25@uga.edu) on 10/1/15.
  */
+
+import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
+
 public class StatsPackage {
-    //T Val
-    public static double t(double[] arrayOne, double[] arrayTwo) {
-        return TestUtils.t(arrayOne, arrayTwo);
-    }
 
-    public static Double t(double[][] arrayOne, double[] arrayTwo) {
-        return t(arrayFlatten(arrayOne), arrayTwo);
-    }
+    public static void debugDescriptiveStatistics(double[] array) {
 
-    public static Double t(double[][] arrayOne, double[][] arrayTwo) {
-        return t(arrayFlatten(arrayOne), arrayFlatten(arrayTwo));
-    }
+        // Get a DescriptiveStatistics instance
+        DescriptiveStatistics stats = new DescriptiveStatistics();
 
-    //P Val
-    public static double tTest(double[] arrayOne, double[] arrayTwo) {
-        return TestUtils.tTest(arrayOne, arrayTwo);
-    }
-
-    public static Double tTest(double[][] arrayOne, double[] arrayTwo) {
-        return tTest(arrayFlatten(arrayOne),arrayTwo);
-    }
-
-    public static Double tTest(double[][] arrayOne, double[][] arrayTwo) {
-        return tTest(arrayFlatten(arrayOne),arrayFlatten(arrayTwo));
-    }
-
-    public static SummaryStatistics summaryStatistics(double[] array) {
-        SummaryStatistics summaryStatistics = new SummaryStatistics();
+        // Add the data from the array
         for (int i = 0; i < array.length; i++) {
-            summaryStatistics.addValue(array[i]);
+            stats.addValue(array[i]);
         }
-        return summaryStatistics;
-    }
-    
-    
-    public static Double[] arrayFlatten(Double[][] array){
-        int nElements = 0;
-        //get total number of elements
-        for(int i = 0; i< array.length;i++){
-            for (int j = 0;j < array[i].length;j++){
-                nElements++;
-            }
-        }
-        Double[] arrayToReturn = new Double[nElements];
 
-        nElements = 0;
-        for(int i = 0; i< array.length;i++){
-            for (int j = 0;j < array[i].length;j++){
-                arrayToReturn[nElements] = array[i][j];
-                nElements++;
+        //Print the stats
+        System.out.println(removeOutliers(stats));
+    }
+
+
+    public static DescriptiveStatistics removeOutliers(DescriptiveStatistics stats) {
+        //Move values into a sorted array
+        double[] values = stats.getSortedValues();
+        //Prepare an object to store the new values;
+        DescriptiveStatistics newValues = new DescriptiveStatistics();
+        //Get mean
+        double mean = stats.getMean();
+        double IQR;
+        double lowerBound;
+        double upperBound;
+
+        //Get quartiles
+
+        //Lower Quartile
+        //Array Positions
+        double upperLower = Math.ceil(values.length * .25);
+        double lowerLower = Math.floor(values.length * .25);
+        double lowerQuartile = (values[(int) lowerLower] + values[(int) upperLower]) / 2;
+
+        //System.out.println("[DEBUG]upperLower="+upperLower+"\nlowerLower="+lowerLower+"\nlowerQuartile="+lowerQuartile);
+
+        //Upper Quartile
+        //Array Positions
+        double upperUpper = Math.ceil(values.length * .75);
+        double lowerUpper = Math.floor(values.length * .75);
+        double upperQuartile = (values[(int) lowerUpper] + values[(int) upperUpper]) / 2;
+
+        //System.out.println("[DEBUG]upperUpper="+upperUpper+"\nlowerUpper="+lowerUpper+"\nupperQuartile="+upperQuartile);
+
+        IQR = upperQuartile - lowerQuartile;
+
+        lowerBound = mean - (1.5 * IQR);
+        upperBound = mean + (1.5 * IQR);
+
+        //Check for outliers and move into a new Object
+        for (int i = 0; i < values.length; i++) {
+            if (values[i] >= lowerBound && values[i] <= upperBound) {
+                newValues.addValue(values[i]);
             }
         }
-        return arrayToReturn;
+
+        return newValues;
+
 
     }
 
@@ -82,12 +88,13 @@ public class StatsPackage {
 
     }
 
-    public static double[] arrayUnbox(Double[] array){
+    public static double[] arrayUnbox(Double[] array) {
         double[] returnArray = new double[array.length];
-        for(int i = 0; i < array.length;i++){
+        for (int i = 0; i < array.length; i++) {
             returnArray[i] = array[i];
         }
         return returnArray;
     }
+
 }
 
