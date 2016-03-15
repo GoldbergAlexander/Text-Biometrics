@@ -7,10 +7,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class FingerprintModel {
     private static String collectionName = "fingerprints";
@@ -172,6 +169,21 @@ public class FingerprintModel {
         return getKeyData(user, key).length;
     }
 
+    public static String[] comparablePointsOfAnalysis(String user1, String user2, int minSize) {
+        List<String> comparablePoints = new ArrayList<String>();
+
+        String[] user1compares = pointsOfAnalysis(user1, minSize);
+        String[] user2compares = pointsOfAnalysis(user2, minSize);
+
+        for (int i = 0; i < user1compares.length; i++) {
+            if (Arrays.asList(user2compares).contains(user1compares[i])) {
+                comparablePoints.add(user1compares[i]);
+            }
+        }
+
+        return comparablePoints.toArray(new String[]{});
+    }
+
     public static void debugDataDump() {
 
         System.out.println("User List");
@@ -211,6 +223,43 @@ public class FingerprintModel {
                 System.out.println();
             }
         }
+    }
+
+    public static void debugCompare(String user1, String user2) {
+        List<Double> comparisons = new ArrayList<Double>();
+        String[] comparePoints = comparablePointsOfAnalysis(user1, user2, 2);
+
+        for (int i = 0; i < comparePoints.length; i++) {
+            comparisons.add(StatsPackage.tTest(getKeyData(user1, comparePoints[i]), getKeyData(user2, comparePoints[i])));
+        }
+
+        System.out.println("Comparing " + user1 + " to " + user2);
+        System.out.println("Results of T Test as P values:");
+
+        int fails = 0, success = 0;
+        double alpha = .05;
+        for (int i = 0; i < comparePoints.length; i++) {
+            //System.out.print(comparePoints[i] + ":" + comparisons.get(i) + "\n");
+            if (comparisons.get(i) < alpha) {
+                success++;
+            } else {
+                fails++;
+            }
+        }
+        System.out.println(success + " points are significantly different, out of " + (success + fails) + " tested points");
+
+    }
+
+    public static void debugCompareAllUsers() {
+        String[] userlist = getUserList();
+
+        for (int i = 0; i < userlist.length; i++) {
+            for (int j = 0; j < userlist.length; j++) {
+                debugCompare(userlist[i], userlist[j]);
+            }
+        }
+
+
     }
 
 

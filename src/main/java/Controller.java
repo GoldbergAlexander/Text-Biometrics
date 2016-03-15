@@ -82,7 +82,8 @@ public class Controller implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         view.getChildren().removeAll();
-        FingerprintModel.debugDataDump();
+        // FingerprintModel.debugDataDump();
+        FingerprintModel.debugCompareAllUsers();
 
 
     }

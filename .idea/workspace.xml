@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b53f50cb-7c9d-426a-9bc9-b63ea3a70d2f" name="Default" comment="created a debug function DataDUmp in fingerprint model to enable easy debuging. Implemented a custom sort that orders &quot;Key&quot; data in a sane order.&#10;&#10;">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/journal/j._0" afterPath="$PROJECT_DIR$/Data/journal/j._0" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/journal/lsn" afterPath="$PROJECT_DIR$/Data/journal/lsn" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/local.0" afterPath="$PROJECT_DIR$/Data/local.0" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/FingerprintModel.class" afterPath="$PROJECT_DIR$/target/classes/FingerprintModel.class" />
+    <list default="true" id="b53f50cb-7c9d-426a-9bc9-b63ea3a70d2f" name="Default" comment="Added functions to the StatsPackage including a method to remove outliers. TODO is to create a set of comparisons on the modified data.">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/StatsPackage.class" afterPath="$PROJECT_DIR$/target/classes/StatsPackage.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Controller.java" afterPath="$PROJECT_DIR$/src/main/java/Controller.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/FingerprintModel.java" afterPath="$PROJECT_DIR$/src/main/java/FingerprintModel.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/StatsPackage.java" afterPath="$PROJECT_DIR$/src/main/java/StatsPackage.java" />
     </list>
@@ -44,11 +42,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Controller.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Controller.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.1628959">
-              <caret line="84" column="41" selection-start-line="84" selection-start-column="41" selection-end-line="84" selection-end-column="41" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="85" column="48" selection-start-line="85" selection-start-column="48" selection-end-line="85" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -58,22 +56,27 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/StatsPackage.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="28" column="18" selection-start-line="28" selection-start-column="18" selection-end-line="28" selection-end-column="18" />
+              <caret line="34" column="18" selection-start-line="34" selection-start-column="18" selection-end-line="34" selection-end-column="18" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FingerprintModel.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="FingerprintModel.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/FingerprintModel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="186" column="89" selection-start-line="186" selection-start-column="89" selection-end-line="186" selection-end-column="89" />
+            <state vertical-scroll-proportion="0.5588235">
+              <caret line="241" column="14" selection-start-line="241" selection-start-column="14" selection-end-line="241" selection-end-column="14" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="imports" expanded="true" />
+                <element signature="e#5505#5506#0" expanded="true" />
+                <element signature="e#5556#5557#0" expanded="true" />
+                <element signature="e#5708#5716#0" expanded="true" />
+                <element signature="e#7928#7936#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -114,8 +117,8 @@
         <option value="$PROJECT_DIR$/src/main/resources/View.fxml" />
         <option value="$PROJECT_DIR$/src/main/java/FingerprintController.java" />
         <option value="$PROJECT_DIR$/src/main/java/Controller.java" />
-        <option value="$PROJECT_DIR$/src/main/java/FingerprintModel.java" />
         <option value="$PROJECT_DIR$/src/main/java/StatsPackage.java" />
+        <option value="$PROJECT_DIR$/src/main/java/FingerprintModel.java" />
       </list>
     </option>
   </component>
@@ -166,7 +169,7 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="1" />
     <option name="y" value="23" />
-    <option name="width" value="1023" />
+    <option name="width" value="1162" />
     <option name="height" value="797" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -196,7 +199,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -257,7 +260,7 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -896,7 +899,8 @@
       <workItem from="1452965310192" duration="1138000" />
       <workItem from="1457903930490" duration="7438000" />
       <workItem from="1457981339118" duration="408000" />
-      <workItem from="1457987294361" duration="4024000" />
+      <workItem from="1457987294361" duration="4177000" />
+      <workItem from="1458049377315" duration="2998000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed FingerprintModel&#10;Testing in FingerprintModelTester">
       <created>1443559178253</created>
@@ -922,11 +926,17 @@
       <option name="project" value="LOCAL" />
       <updated>1457921547284</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Added functions to the StatsPackage including a method to remove outliers. TODO is to create a set of comparisons on the modified data.">
+      <created>1458009178959</created>
+      <option name="number" value="00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1458009178959</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60890000" />
+    <option name="totallyTimeSpent" value="64041000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -949,7 +959,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1" y="23" width="1023" height="797" extended-state="0" />
+    <frame x="1" y="23" width="1162" height="797" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -962,7 +972,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33333334" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.076595746" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25280327" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22142857" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329233" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14109986" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962519" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1032,7 +1042,8 @@
     <MESSAGE value="Stats package made workable" />
     <MESSAGE value="Added travel time changes to DB in the format &quot;A:Z&quot; A being the last pressed key and Z being the next pressed key." />
     <MESSAGE value="created a debug function DataDUmp in fingerprint model to enable easy debuging. Implemented a custom sort that orders &quot;Key&quot; data in a sane order.&#10;&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="created a debug function DataDUmp in fingerprint model to enable easy debuging. Implemented a custom sort that orders &quot;Key&quot; data in a sane order.&#10;&#10;" />
+    <MESSAGE value="Added functions to the StatsPackage including a method to remove outliers. TODO is to create a set of comparisons on the modified data." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added functions to the StatsPackage including a method to remove outliers. TODO is to create a set of comparisons on the modified data." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -1055,6 +1066,10 @@
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
+            <element signature="e#5505#5506#0" expanded="true" />
+            <element signature="e#5556#5557#0" expanded="true" />
+            <element signature="e#5708#5716#0" expanded="true" />
+            <element signature="e#7928#7936#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1432,20 +1447,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/StatsPackage.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="28" column="18" selection-start-line="28" selection-start-column="18" selection-end-line="28" selection-end-column="18" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
+          <caret line="85" column="48" selection-start-line="85" selection-start-column="48" selection-end-line="85" selection-end-column="48" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/FingerprintModel.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/StatsPackage.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="186" column="89" selection-start-line="186" selection-start-column="89" selection-end-line="186" selection-end-column="89" />
+          <caret line="34" column="18" selection-start-line="34" selection-start-column="18" selection-end-line="34" selection-end-column="18" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
@@ -1453,11 +1466,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Controller.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/FingerprintModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.1628959">
-          <caret line="84" column="41" selection-start-line="84" selection-start-column="41" selection-end-line="84" selection-end-column="41" />
-          <folding />
+        <state vertical-scroll-proportion="0.5588235">
+          <caret line="241" column="14" selection-start-line="241" selection-start-column="14" selection-end-line="241" selection-end-column="14" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#5505#5506#0" expanded="true" />
+            <element signature="e#5556#5557#0" expanded="true" />
+            <element signature="e#5708#5716#0" expanded="true" />
+            <element signature="e#7928#7936#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

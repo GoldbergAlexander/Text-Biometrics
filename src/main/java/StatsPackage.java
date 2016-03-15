@@ -3,6 +3,7 @@
  */
 
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
+import org.apache.commons.math3.stat.inference.TestUtils;
 
 public class StatsPackage {
 
@@ -19,6 +20,25 @@ public class StatsPackage {
         //Print the stats
         System.out.println(removeOutliers(stats));
     }
+
+    public static double tTest(double[] array1, double[] array2) {
+        DescriptiveStatistics one = new DescriptiveStatistics();
+        DescriptiveStatistics two = new DescriptiveStatistics();
+
+        for (int i = 0; i < array1.length; i++) {
+            one.addValue(array1[i]);
+        }
+
+        for (int i = 0; i < array2.length; i++) {
+            two.addValue(array2[i]);
+        }
+        //TODO Fix outlier problem
+        //one = removeOutliers(one);
+        //two = removeOutliers(two);
+
+        return TestUtils.tTest(one, two);
+    }
+
 
 
     public static DescriptiveStatistics removeOutliers(DescriptiveStatistics stats) {
